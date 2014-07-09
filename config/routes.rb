@@ -3,7 +3,12 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
 
-  resources :groups, only: [:index, :show, :new, :create]
+  resources :groups, only: [:index, :show, :new, :create] do
+    member do
+      post "join" => "group_memberships#create"
+    end
+  end
+
   resources :users, only: [:new, :create, :show]
   resources :galleries do
     resources :images, only: [:new, :create, :show, :edit, :update, :destroy] do
