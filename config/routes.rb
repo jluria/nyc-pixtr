@@ -1,4 +1,10 @@
+require "monban/constraints/signed_in"
+
 Rails.application.routes.draw do
+  constraints Monban::Constraints::SignedIn.new do
+    root "dashboards#show", as: :dashboard
+  end
+
   root to: "homes#show"
 
   resource :session, only: [:new, :create, :destroy]
@@ -8,6 +14,8 @@ Rails.application.routes.draw do
       post "join" => "group_memberships#create"
     end
   end
+
+  resource :dashboard, only: [:show]
 
   resources :users, only: [:new, :create, :show]
   resources :galleries do
