@@ -16,6 +16,10 @@
       <%= link_to "Sign in", new_session_path %>
     <% end %>
 
+    <% flash.each do |key, value| %>
+      <p class="<%= key %>"><%= value %></p>
+    <% end %>
+
     <%= yield %>
 
   </body>
