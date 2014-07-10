@@ -4,9 +4,15 @@
 
 <nav>
   <ul>
-    <li><%= link_to "Join", join_group_path(@group), method: :post %>
+    <% if current_user.member?(@group) %>
+      <li><%= link_to "Leave", leave_group_path(@group), method: :delete, data: { confirm: "Are you sure?" } %></li>
+    <% else %>
+      <li><%= link_to "Join", join_group_path(@group), method: :post %></li>
+    <% end %>
   </ul>
 </nav>
+
+<h2>Users</h2>
 
 <ul>
   <% @group.users.each do |user| %>

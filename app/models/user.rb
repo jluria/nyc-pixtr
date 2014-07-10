@@ -6,7 +6,15 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
   validates :password_digest, presence: true
 
+  def member?(group)
+    groups.include?(group)
+  end
+
   def join(group)
     groups << group
+  end
+
+  def leave(group)
+    groups.delete(group)
   end
 end
